@@ -1,3 +1,4 @@
+// import { sound } from "@pixi/sound";
 import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
 
@@ -40,12 +41,18 @@ export class PuzzlePiece extends PIXI.utils.EventEmitter {
     // 2. Set the dragging state for this sprite
     this.dragging = true;
     this.sprite.zIndex = 1;
+
+    // PIXI.sound.Sound.from('click.mp3')
+    // PIXI.sound.add("click", "click.mp3");
+    // PIXI.sound.play("click");
   }
 
   onTouchEnd(e) {
     this.dragging = false;
     this.sprite.zIndex = 0;
     this.emit("drag:end");
+
+    // Globals.resources.click.sound.play("click");
   }
 
   onTouchMove(e) {

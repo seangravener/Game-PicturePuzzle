@@ -1,5 +1,5 @@
-import { Globals } from "./Globals";
 import { LoaderConfig } from "./LoaderConfig";
+import { Globals } from "./Globals";
 
 export class Loader {
   constructor(loader) {
@@ -15,6 +15,7 @@ export class Loader {
 
       this.loader.load((loader, resources) => {
         Globals.resources = resources;
+        console.log(Globals);
         resolve();
       });
     });

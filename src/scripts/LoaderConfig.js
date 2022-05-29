@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js";
+
 export const LoaderConfig = {
   bg: require("../sprites/bg.png"),
   puzzle1: require("../sprites/1.png"),
@@ -9,4 +11,7 @@ export const LoaderConfig = {
   puzzle7: require("../sprites/7.png"),
   puzzle8: require("../sprites/8.png"),
   puzzle9: require("../sprites/9.png"),
+
+  // click: PIXI.sound.Sound.from('click.mp3'),
+  // music: require("./music.mp3"),
 };
