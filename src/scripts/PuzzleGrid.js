@@ -18,11 +18,16 @@ export class PuzzleGrid {
     PuzzleGridConfig.forEach((field) => {
       const random = Math.floor(Math.random() * ids.length); // random between [0, 8] (equals 9 possibilities)
       const id = ids[random];
-
       ids = ids.filter((item) => item !== id);
+
       const piece = new PuzzlePiece(id, field);
+      piece.on("drag:end", this.onPieceDragEnd);
       this.container.addChild(piece.sprite);
       this.pieces.push(piece);
     });
+  }
+
+  onPieceDragEnd() {
+    this.reset();
   }
 }
