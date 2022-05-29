@@ -10,7 +10,6 @@ export class MainScene {
   }
 
   createBackground() {
-    console.log(Globals);
     this.bg = new PIXI.Sprite(Globals.resources.bg.texture);
     this.container.addChild(this.bg);
     this.bg.width = window.innerWidth;
@@ -21,7 +20,6 @@ export class MainScene {
     // console.log(this.bg.x, this.bg.y);
 
     // Show mirror version
-    console.log(this.bg);
     // this.bg.scale.set(-1, 1);
     // this.bg.x = window.innerWidth;
 
