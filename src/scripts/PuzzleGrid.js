@@ -13,21 +13,42 @@ export class PuzzleGrid {
 
   createPuzzlePieces() {
     this.pieces = [];
-
     let ids = PuzzleGridConfig.map((field) => field.id);
+
     PuzzleGridConfig.forEach((field) => {
       const random = Math.floor(Math.random() * ids.length); // random between [0, 8] (equals 9 possibilities)
       const id = ids[random];
       ids = ids.filter((item) => item !== id);
 
       const piece = new PuzzlePiece(id, field);
-      piece.on("drag:end", this.onPieceDragEnd);
+      piece.on("drag:end", () => this.onPieceDragEnd(piece));
       this.container.addChild(piece.sprite);
       this.pieces.push(piece);
     });
   }
 
-  onPieceDragEnd() {
-    this.reset();
+  onPieceDragEnd(piece) {
+    const pieceToReplace = this.pieces.find(
+      (item) =>
+        item !== piece &&
+        // piece.center to the right of the left side
+        piece.sprite.x >= item.left &&
+        // piece.center to the left of the right side
+        piece.sprite.x <= item.right &&
+        // piece.center below the top side
+        piece.sprite.y <= item.bottom &&
+        // piece.center above the bottom side
+        piece.sprite.y >= item.top
+    );
+
+        if (pieceToReplace) {
+      console.log("replace!", pieceToReplace);
+      const replaceField = pieceToReplace.field;
+      pieceToReplace.setField(piece.field);
+      piece.setField(replaceField);
+    } else {
+      console.log('nope');
+      piece.reset();
+    }
   }
 }

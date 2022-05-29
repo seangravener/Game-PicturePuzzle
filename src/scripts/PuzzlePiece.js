@@ -2,8 +2,21 @@ import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
 
 export class PuzzlePiece extends PIXI.utils.EventEmitter {
+  get left() {
+    return this.sprite.x - this.sprite.width / 2;
+  }
+  get right() {
+    return this.sprite.x + this.sprite.width / 2;
+  }
+  get top() {
+    return this.sprite.y - this.sprite.height / 2;
+  }
+  get bottom() {
+    return this.sprite.y + this.sprite.height / 2;
+  }
+
   constructor(id, field) {
-    super()
+    super();
 
     this.sprite = new PIXI.Sprite(Globals.resources[`puzzle${id}`].texture);
     this.field = field;
@@ -21,20 +34,18 @@ export class PuzzlePiece extends PIXI.utils.EventEmitter {
   }
 
   onTouchStart(e) {
-    console.log(e);
     // 1. Remember the posisiton of the cursor
     this.touchPosition = { x: e.data.global.x, y: e.data.global.y };
 
     // 2. Set the dragging state for this sprite
     this.dragging = true;
-
     this.sprite.zIndex = 1;
   }
 
   onTouchEnd(e) {
     this.dragging = false;
     this.sprite.zIndex = 0;
-    this.emit('drag:end')
+    this.emit("drag:end");
   }
 
   onTouchMove(e) {
@@ -52,6 +63,11 @@ export class PuzzlePiece extends PIXI.utils.EventEmitter {
     // 3. apply the resulting offset
     this.sprite.x = this.field.x + offsetX;
     this.sprite.y = this.field.y + offsetY;
+  }
+
+  setField(field) {
+    this.field = field;
+    this.reset();
   }
 
   reset() {
