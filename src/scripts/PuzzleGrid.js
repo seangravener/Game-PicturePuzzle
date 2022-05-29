@@ -4,9 +4,10 @@ import { PuzzlePiece } from "./PuzzlePiece";
 
 export class PuzzleGrid {
   constructor() {
-    this.container = new PIXI.Container(); 
+    this.container = new PIXI.Container();
     this.container.x = window.innerWidth / 2;
     this.container.y = window.innerHeight / 2;
+    this.container.sortableChildren = true;
     this.createPuzzlePieces();
   }
 

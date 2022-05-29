@@ -3,13 +3,12 @@ import { Globals } from "./Globals";
 
 export class PuzzlePiece {
   constructor(id, field) {
-    this.field = field;
     this.sprite = new PIXI.Sprite(Globals.resources[`puzzle${id}`].texture);
-    this.sprite.x = field.x;
-    this.sprite.y = field.y;
+    this.field = field;
+    this.reset();
+
     this.sprite.anchor.set(0.5);
     this.sprite.scale.set(0.5);
-
     this.setInteractive();
   }
 
@@ -27,11 +26,14 @@ export class PuzzlePiece {
 
     // 2. Set the dragging state for this sprite
     this.dragging = true;
+
+    this.sprite.zIndex = 1;
   }
 
   onTouchEnd(e) {
-    console.log(e);
     this.dragging = false;
+    this.sprite.zIndex = 0;
+    this.reset();
   }
 
   onTouchMove(e) {
@@ -49,5 +51,10 @@ export class PuzzlePiece {
     // 3. apply the resulting offset
     this.sprite.x = this.field.x + offsetX;
     this.sprite.y = this.field.y + offsetY;
+  }
+
+  reset() {
+    this.sprite.x = this.field.x;
+    this.sprite.y = this.field.y;
   }
 }
