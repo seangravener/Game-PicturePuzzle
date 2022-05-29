@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
-import { PuzzleGrid } from "./PuzzleGride";
+import { PuzzleGrid } from "./PuzzleGrid";
 
 export class MainScene {
   constructor() {
