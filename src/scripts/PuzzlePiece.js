@@ -1,26 +1,29 @@
 // import { sound } from "@pixi/sound";
-import * as PIXI from "pixi.js";
+import { utils, Sprite } from "pixi.js";
 import { Globals } from "./Globals";
 
-export class PuzzlePiece extends PIXI.utils.EventEmitter {
+export class PuzzlePiece extends utils.EventEmitter {
   get left() {
     return this.sprite.x - this.sprite.width / 2;
   }
+
   get right() {
     return this.sprite.x + this.sprite.width / 2;
   }
+
   get top() {
     return this.sprite.y - this.sprite.height / 2;
   }
+
   get bottom() {
     return this.sprite.y + this.sprite.height / 2;
   }
 
   constructor(id, field) {
     super();
-
-    this.sprite = new PIXI.Sprite(Globals.resources[`puzzle${id}`].texture);
     this.field = field;
+
+    this.sprite = new Sprite(Globals.assets[id].texture);
     this.sprite.anchor.set(0.5);
     this.sprite.scale.set(0.5);
     this.setInteractive();
@@ -35,24 +38,15 @@ export class PuzzlePiece extends PIXI.utils.EventEmitter {
   }
 
   onTouchStart(e) {
-    // 1. Remember the posisiton of the cursor
     this.touchPosition = { x: e.data.global.x, y: e.data.global.y };
-
-    // 2. Set the dragging state for this sprite
     this.dragging = true;
     this.sprite.zIndex = 1;
-
-    // PIXI.sound.Sound.from('click.mp3')
-    // PIXI.sound.add("click", "click.mp3");
-    // PIXI.sound.play("click");
   }
 
   onTouchEnd(e) {
     this.dragging = false;
     this.sprite.zIndex = 0;
     this.emit("drag:end");
-
-    // Globals.resources.click.sound.play("click");
   }
 
   onTouchMove(e) {
@@ -60,14 +54,14 @@ export class PuzzlePiece extends PIXI.utils.EventEmitter {
       return;
     }
 
-    // 1. get the coordinates of cursor
-    const currentPosition = { x: e.data.global.x, y: e.data.global.y };
+    this.setCoords(e);
+  }
 
-    // 2. calcuate the offset (subtract touch from current)
+  setCoords(e) {
+    const currentPosition = { x: e.data.global.x, y: e.data.global.y };
     const offsetX = currentPosition.x - this.touchPosition.x;
     const offsetY = currentPosition.y - this.touchPosition.y;
 
-    // 3. apply the resulting offset
     this.sprite.x = this.field.x + offsetX;
     this.sprite.y = this.field.y + offsetY;
   }

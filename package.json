@@ -22,8 +22,6 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "@pixi/sound": "^4.2.0",
-    "pixi-sound": "^3.0.5",
     "pixi.js": "^5.3.7"
   }
 }

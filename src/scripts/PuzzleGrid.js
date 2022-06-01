@@ -1,10 +1,10 @@
-import * as PIXI from "pixi.js";
-import { PuzzleGridConfig } from "./PuzzleGridConfig";
+import { Container } from "pixi.js";
+import { PuzzleGridFields } from "./PuzzleGridFields";
 import { PuzzlePiece } from "./PuzzlePiece";
 
 export class PuzzleGrid {
   constructor() {
-    this.container = new PIXI.Container();
+    this.container = new Container();
     this.container.x = window.innerWidth / 2;
     this.container.y = window.innerHeight / 2;
     this.container.sortableChildren = true;
@@ -13,12 +13,12 @@ export class PuzzleGrid {
 
   createPuzzlePieces() {
     this.pieces = [];
-    let ids = PuzzleGridConfig.map((field) => field.id);
+    let gridIds = PuzzleGridFields.map((item) => item.id);
 
-    PuzzleGridConfig.forEach((field) => {
-      const random = Math.floor(Math.random() * ids.length); // random between [0, 8] (equals 9 possibilities)
-      const id = ids[random];
-      ids = ids.filter((item) => item !== id);
+    PuzzleGridFields.forEach((field) => {
+      const random = Math.floor(Math.random() * gridIds.length); // random between [0, 8] (equals 9 possibilities)
+      const id = gridIds[random];
+      gridIds = gridIds.filter((item) => item !== id);
 
       const piece = new PuzzlePiece(id, field);
       piece.on("drag:end", () => this.onPieceDragEnd(piece));
@@ -41,13 +41,11 @@ export class PuzzleGrid {
         piece.sprite.y >= item.top
     );
 
-        if (pieceToReplace) {
-      console.log("replace!", pieceToReplace);
+    if (pieceToReplace) {
       const replaceField = pieceToReplace.field;
       pieceToReplace.setField(piece.field);
       piece.setField(replaceField);
     } else {
-      console.log('nope');
       piece.reset();
     }
   }

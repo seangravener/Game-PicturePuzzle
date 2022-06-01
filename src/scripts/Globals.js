@@ -1,3 +1,1 @@
-export const Globals = {
-  resources: {},
-};
+export const Globals = { assets: {} };

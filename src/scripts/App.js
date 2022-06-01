@@ -1,23 +1,21 @@
-import * as PIXI from "pixi.js";
+import { Application } from "pixi.js";
 import { Loader } from "./Loader";
 import { MainScene } from "./MainScene";
 
 export class App {
   run() {
-    // create canvas
-    this.app = new PIXI.Application({ resizeTo: window });
-    document.body.appendChild(this.app.view);
+    // Create canvas
+    this.instance = new Application({ resizeTo: window });
+    document.body.appendChild(this.instance.view);
 
-    //load sprites
-    this.loader = new Loader(this.app.loader);
+    // Load sprites
+    this.loader = new Loader(this.instance.loader);
     this.loader.preload().then(() => this.start());
   }
 
   start() {
     this.scene = new MainScene();
-    
-    // The stage auto-renders
-    this.app.stage.addChild(this.scene.container);
-    console.log("the game started!");
+    this.instance.stage.addChild(this.scene.container);
+    console.log("The game has started");
   }
 }
