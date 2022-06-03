@@ -1,6 +1,5 @@
 import { Container } from "pixi.js";
-import { puzzleTiles } from "./config/config.tiles";
-import { genRandomInt } from "./utils/helpers";
+import { genRandomInt, tileGrid } from "./utils/helpers";
 import { PuzzlePiece } from "./PuzzlePiece";
 
 export class PuzzleGrid {
@@ -14,9 +13,9 @@ export class PuzzleGrid {
   }
 
   createPuzzlePieces() {
-    let gridIds = puzzleTiles.map((item) => item.id);
+    let gridIds = tileGrid.map((item) => item.id);
 
-    puzzleTiles.forEach((field) => {
+    tileGrid.forEach((field) => {
       const random = genRandomInt(gridIds.length);
       const id = gridIds[random];
       gridIds = gridIds.filter((item) => item !== id);
