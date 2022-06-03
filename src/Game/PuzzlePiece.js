@@ -1,6 +1,5 @@
-// import { sound } from "@pixi/sound";
 import { utils, Sprite } from "pixi.js";
-import { Globals } from "./Globals";
+import { Globals } from "./config/config.globals";
 
 export class PuzzlePiece extends utils.EventEmitter {
   get left() {

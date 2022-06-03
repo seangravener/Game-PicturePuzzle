@@ -1,10 +1,10 @@
-import { AssetsConfig } from "./LoaderConfig";
-import { Globals } from "./Globals";
+import { Assets } from "./config/config.assets";
+import { Globals } from "./config/config.globals";
 
-export class Loader {
+export class AssetLoader {
   constructor(loader) {
     this.loader = loader;
-    this.assets = AssetsConfig;
+    this.assets = Assets;
   }
 
   preload() {

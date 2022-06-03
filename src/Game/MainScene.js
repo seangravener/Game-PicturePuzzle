@@ -1,5 +1,5 @@
 import { Container, Sprite } from "pixi.js";
-import { Globals } from "./Globals";
+import { Globals } from "./config/config.globals";
 import { PuzzleGrid } from "./PuzzleGrid";
 
 export class MainScene {

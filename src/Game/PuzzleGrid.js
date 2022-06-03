@@ -1,9 +1,11 @@
 import { Container } from "pixi.js";
-import { PuzzleGridFields } from "./PuzzleGridFields";
+import { puzzleTiles } from "./config/config.tiles";
+import { genRandomInt } from "./utils/helpers";
 import { PuzzlePiece } from "./PuzzlePiece";
 
 export class PuzzleGrid {
   constructor() {
+    this.pieces = [];
     this.container = new Container();
     this.container.x = window.innerWidth / 2;
     this.container.y = window.innerHeight / 2;
@@ -12,11 +14,10 @@ export class PuzzleGrid {
   }
 
   createPuzzlePieces() {
-    this.pieces = [];
-    let gridIds = PuzzleGridFields.map((item) => item.id);
+    let gridIds = puzzleTiles.map((item) => item.id);
 
-    PuzzleGridFields.forEach((field) => {
-      const random = Math.floor(Math.random() * gridIds.length); // random between [0, 8] (equals 9 possibilities)
+    puzzleTiles.forEach((field) => {
+      const random = genRandomInt(gridIds.length);
       const id = gridIds[random];
       gridIds = gridIds.filter((item) => item !== id);
 

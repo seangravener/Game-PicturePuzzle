@@ -1,4 +1,4 @@
-export const PuzzleGridFields = [
+export const puzzleTiles = [
   { id: 1, x: -155, y: -155 },
   { id: 2, x: 0, y: -155 },
   { id: 3, x: 155, y: -155 },
