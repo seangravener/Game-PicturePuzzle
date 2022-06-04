@@ -4,7 +4,7 @@ import { Globals } from "./config/config.globals";
 export class AssetLoader {
   constructor(loader) {
     this.loader = loader;
-    this.assets = Assets;
+    this.assets = Assets.fractal3;
   }
 
   preload() {
